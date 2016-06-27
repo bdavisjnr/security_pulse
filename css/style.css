@@ -5,6 +5,9 @@
  *   version 2.0
  *
 */
+
+
+
 h1,
 h2,
 h3,
@@ -46,7 +49,7 @@ h5 {
   color: #999c9e;
 }
 .nav > li.active > a {
-  color: #ffffff;
+  color: #052343;
 }
 .navbar-default .nav > li > a:hover,
 .navbar-default .nav > li > a:focus {
@@ -162,13 +165,16 @@ body.body-small .navbar-top-links li:last-child {
 .nav-header {
   padding: 33px 25px;
   background: url("patterns/header-profile.png") no-repeat;
+  font-size: 20px;
+  color: #fff;
 }
 .pace-done .nav-header {
   transition: all 0.5s;
 }
 .nav > li.active {
-  border-left: 4px solid #19aa8d;
-  background: #293846;
+/*  border-left: 4px solid #19aa8d;
+  background: #293846;*/
+  border-bottom: 4px solid #8F2E39;
 }
 .nav.nav-second-level > li.active {
   border: none;
@@ -2892,7 +2898,7 @@ a.forum-item-title:hover {
   border-bottom: 1px solid #e7eaec;
 }
 body {
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #2f4050;
   font-size: 13px;
   color: #676a6c;
@@ -3312,6 +3318,7 @@ code {
   margin-top: 0;
   padding: 0;
 }
+
 .ibox.collapsed .ibox-content {
   display: none;
 }
@@ -6421,4 +6428,61 @@ body.skin-3 {
   .welcome-message {
     display: none;
   }
+}
+
+/* CUSTOM CSS */
+
+#attacks h5 {
+  color: #fff;
+}
+#attacks-header{
+  background-color: #3C90B3;
+  font-weight: 400;
+}
+#attacks-content {
+  background-color: #31708B;
+}
+#attacks-content h1, small {
+  color: #fff;
+}
+
+#hp-attacks h5 {
+  color: #fff;
+}
+#hp-attacks-header{
+  background-color: #20576C;
+  font-weight: 400;
+}
+#hp-attacks-content {
+  background-color: #163D4C;
+}
+#hp-attacks-content h1, small {
+  color: #fff;
+}
+
+#mvl h5 {
+  color: #fff;
+}
+#mvl-header{
+  background-color: #0C4077;
+  font-weight: 400;
+}
+#mvl-content {
+  background-color: #052343;
+}
+#mvl-content h1, small {
+  color: #fff;
+}
+
+#health h5 {
+  color: #fff;
+}
+#health-header{
+  background-color: #3C90B3;
+}
+#health-content {
+  background-color: #31708B;
+}
+#health-content h1, small {
+  color: #fff;
 }
