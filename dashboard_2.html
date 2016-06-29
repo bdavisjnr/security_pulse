@@ -25,7 +25,6 @@
 <body>
     <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">
                 <li>
                     <a href="widgets.html"><i class="fa fa-flask"></i> <span class="nav-label">Overview</span> </a>
@@ -40,25 +39,20 @@
                     <a href="widgets.html"><i class="fa fa-flask"></i> <span class="nav-label">Sunburst</span> </a>
                 </li>
             </ul>
-
-        </div>
     </nav>
 
         <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
-        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="dashboard_2.html#"><i class="fa fa-bars"></i> </a>
-        </div>
+        <nav class="navbar white-bg" role="navigation" style="margin-bottom: 0">
 
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Security Pulse</a>
+          <a class="navbar-brand" href="#">SecurityPulse</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
           <li class="active"><a href="#">Dashboard</a></li>
-          <li><a href="#">Documentation</a></li>
-          <li><a href="#">About</a></li> 
+          <li><a href="#">Instructions</a></li>
+          <li><a href="#">Documentation</a></li> 
         </ul>
       </div>
 
@@ -76,7 +70,7 @@
                             </div>
                             <div class="ibox-content" id="attacks-content">
                                 <h1 class="no-margins">15</h1>
-                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-level-up"></i></div>
+                                <div class="stat-percent font-bold text-info">98%<i class="fa fa-level-up"></i></div>
                                 <small>&nbsp;</small>
                             </div>
                         </div>
@@ -84,12 +78,11 @@
                     <div class="col-lg-3">
                         <div class="ibox float-e-margins" id="hp-attacks">
                             <div class="ibox-title" id="hp-attacks-header">
-                                <span class="label label-info pull-right">Annual</span>
                                 <h5>HIGH PRIORITY ATTACKS</h5>
                             </div>
                             <div class="ibox-content" id="hp-attacks-content">
                                 <h1 class="no-margins">15</h1>
-                                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+                                <div class="stat-percent font-bold text-danger">20%<i class="fa fa-level-down"></i></div>
                                 <small>&nbsp;</small>
                             </div>
                         </div>
@@ -97,12 +90,10 @@
                     <div class="col-lg-3">
                         <div class="ibox float-e-margins" id="mvl">
                             <div class="ibox-title" id="mvl-header">
-                                <span class="label label-primary pull-right">Today</span>
                                 <h5>VULNERABLE LOCATION</h5>
                             </div>
                             <div class="ibox-content" id="mvl-content">
                                 <h1 class="no-margins">St. Louis</h1>
-                                <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
                                 <small>&nbsp;</small>
                             </div>
                         </div>
@@ -110,13 +101,11 @@
                     <div class="col-lg-3">
                         <div class="ibox float-e-margins" id="health">
                             <div class="ibox-title" id="health-header">
-                                <span class="label label-danger pull-right">Low value</span>
                                 <h5>HEALTH STATUS</h5>
                             </div>
                             <div class="ibox-content" id="health-content">
-                                <h1 class="no-margins">80,600</h1>
-                                <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div>
-                                <small>In first month</small>
+                                <h1 class="no-margins">Good</h1>
+                                <small>&nbsp;</small>
                             </div>
                         </div>
             </div>
@@ -229,6 +218,11 @@
                                         <button type="button" class="btn btn-xs btn-white active">Today</button>
                                         <button type="button" class="btn btn-xs btn-white">Monthly</button>
                                         <button type="button" class="btn btn-xs btn-white">Annual</button>
+                                    </div>
+
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-xs btn-white">See More</button>
+
                                     </div>
                                 </div>
                             </div>
