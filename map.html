@@ -63,13 +63,24 @@
         }
         #filters{
           position: absolute;
+          width: 20%;
           background-color: white;
-          left: 84.5%;
+          left: 79%;
           z-index: 1;
-          padding: 0px 10px;
+          padding: 10px;
         }
         .route:hover{
           stroke-width: 5px;
+        }
+        button{
+          border: none;
+          background-color: white;
+          font-weight: bold;
+          text-decoration: underline;
+          margin-top: 10px;
+        }
+        .submit{
+
         }
     </style>
 
@@ -117,12 +128,12 @@
                     <div class="ibox">
                         <div id="filters">
                           <p>Filter By</p>
-                          <div>
+                          <!-- <div>
                             <button>Number of Attacks</button><br>
-                            <input type="checkbox" id='ln' name="low" value="0-50">0-50<br>
-                            <input type="checkbox" id='mn' name="med" value="50-100">50-100<br>
-                            <input type="checkbox" id='hn' name="high" value="100+">100+<br>
-                          </div>
+                            <input type="checkbox" id='ln' name="low">0-50<br>
+                            <input type="checkbox" id='mn' name="med">50-100<br>
+                            <input type="checkbox" id='hn' name="high">100+<br>
+                          </div> -->
                           <div>
                             <button>Severity</button><br>
                             <input type="checkbox" id="p1" name="low" value="low">Priority 1<br>
@@ -136,6 +147,7 @@
                             <input type="checkbox" id="t3" name="high" value="high">Attempted Information Leak<br>
                             <input type="checkbox" id="t4" name="high" value="high">Potential Corporate Privacy Violation<br>
                           </div>
+                          <button class="submit">GO</button>
                         </div>
                         <div id="map"></div>
                     </div>
@@ -247,6 +259,54 @@
           airportMap[geos[i].id] = geos[i].geometry.coordinates;
         }
 
+        function filter(){
+          console.log('filtering');
+          var newData = alterData();
+          console.log(newData.length);
+          var filteredData = [];
+          var data = mapWeek;
+          var numfilters = $('input:checked').size();
+          var filterList = []
+          for(var i=0; i<numfilters;i++){
+            filterList[i] = $('input:checked').eq(i).attr('id');
+          }
+          console.log(filterList);
+          for(var i=0; i< newData.length; i++){
+            var count = 0;
+            for(filter in filterList){
+              if(newData[i][filterList[filter]] == 0){
+                console.log('looking: ' + newData[i][filterList[filter]])
+                count++;
+              }
+            }
+            if(count == filterList.length){
+              newData.splice(i, 1);
+            }
+          }
+          console.log(newData.length);
+          for(var i = 0; i < newData.length; i++){
+            var od = newData[i];
+            if(airportMap[od['origin']] == undefined || airportMap[od['target']] == undefined){
+              continue;
+            }
+            fly(od["origin"], od["target"]);
+          }
+        }
+
+        function alterData(){
+          for(var i = 0; i < mapWeek.length; i++){
+            mapWeek[i]['t1'] = mapWeek[i]['types'][0]
+            mapWeek[i]['t2'] = mapWeek[i]['types'][1]
+            mapWeek[i]['t3'] = mapWeek[i]['types'][2]
+            mapWeek[i]['t4'] = mapWeek[i]['types'][3]
+            mapWeek[i]['p1'] = mapWeek[i]['priorities'][0]
+            mapWeek[i]['p2'] = mapWeek[i]['priorities'][1]
+            mapWeek[i]['p3'] = mapWeek[i]['priorities'][2]
+          }
+          return mapWeek;
+        }
+
+
         $(document).ready(function(){
           var data = mapWeek;
           for(var i = 0; i < data.length; i++){
@@ -263,6 +323,7 @@
             }
             fly(od["origin"], od["target"]);
           }
+          $('.submit').on('click', filter);
         });
     }
     

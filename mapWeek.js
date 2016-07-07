@@ -574,3 +574,17 @@ var mapWeek =
 {"origin":"YYZ","target":"ORD","total":77,"types":[27,24,18,6],"priorities":[30,19,28]},
 {"origin":"YYZ","target":"SEA","total":139,"types":[46,39,25,11],"priorities":[55,35,49]},
 {"origin":"YYZ","target":"STL","total":230,"types":[75,55,47,13],"priorities":[89,63,78]}];
+
+
+mapTest = 
+[{"origin":"ACC","target":"IAD","total":11,"t1":6,"t2":3,"t3":1,"t4":0,"p1":4,"p2":1,"p3":6},
+{"origin":"ACC","target":"LAX","total":7,"types":[2,3,1,1],"priorities":[4,1,2]},
+{"origin":"ACC","target":"ORD","total":17,"types":[6,5,4,2],"priorities":[7,4,6]},
+{"origin":"ACC","target":"SEA","total":13,"types":[1,3,3,2],"priorities":[5,7,1]},
+{"origin":"ACC","target":"STL","total":29,"types":[13,6,8,1],"priorities":[8,8,13]}
+]
+
+
+
+
+
