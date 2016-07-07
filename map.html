@@ -20,6 +20,7 @@
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="mapDay.js"></script>
+    <script src="mapWeek.js"></script>
 
     <style>
         .col-lg-offset-1{
@@ -60,25 +61,15 @@
           margin-bottom: 0;
           padding: 9.5px;
         }
-        #navbuttons{
-          float: right;
-        }
         #filters{
           position: absolute;
           background-color: white;
-          opacity: .8;
-          top: 35px;
-          left: 1800px;
+          left: 84.5%;
+          z-index: 1;
+          padding: 0px 10px;
         }
         .route:hover{
           stroke-width: 5px;
-        }
-        .infoDiv{
-          display: inline;
-          position: relative;
-          font-size: 24px;
-          padding: 10px;
-          border-style: 1px bold;
         }
     </style>
 
@@ -124,32 +115,26 @@
             <div class="row">
                 <div class="col-lg-12 col-lg-offset-1">
                     <div class="ibox">
-                        <div id='navbuttons'>
-                          <button>Past 24 Hours</button>
-                          <button>Past 7 Days</button>
-                          <button>Past 30 Days</button>
-                        </div>
                         <div id="filters">
                           <p>Filter By</p>
                           <div>
                             <button>Number of Attacks</button><br>
-                            <input type="checkbox" name="low" value="0-50">0-50<br>
-                            <input type="checkbox" name="med" value="50-100">50-100<br>
-                            <input type="checkbox" name="high" value="100+">100+<br>
+                            <input type="checkbox" id='ln' name="low" value="0-50">0-50<br>
+                            <input type="checkbox" id='mn' name="med" value="50-100">50-100<br>
+                            <input type="checkbox" id='hn' name="high" value="100+">100+<br>
                           </div>
                           <div>
                             <button>Severity</button><br>
-                            <input type="checkbox" name="low" value="low">Priority 1<br>
-                            <input type="checkbox" name="med" value="med">Priority 2<br>
-                            <input type="checkbox" name="high" value="high">Priority 3<br>
+                            <input type="checkbox" id="p1" name="low" value="low">Priority 1<br>
+                            <input type="checkbox" id="p2" name="med" value="med">Priority 2<br>
+                            <input type="checkbox" id="p3" name="high" value="high">Priority 3<br>
                           </div>
                           <div>
                             <button>Type of Attack</button><br>
-                            <input type="checkbox" name="low" value="low">TYPE 1<br>
-                            <input type="checkbox" name="med" value="med">TYPE 2<br>
-                            <input type="checkbox" name="high" value="high">TYPE 3<br>
-                            <input type="checkbox" name="high" value="high">TYPE 4<br>
-                            <input type="checkbox" name="high" value="high">TYPE 5<br>
+                            <input type="checkbox" id="t1" name="low" value="low">Misc Activity<br>
+                            <input type="checkbox" id="t2" name="med" value="med">Web Application Attack<br>
+                            <input type="checkbox" id="t3" name="high" value="high">Attempted Information Leak<br>
+                            <input type="checkbox" id="t4" name="high" value="high">Potential Corporate Privacy Violation<br>
                           </div>
                         </div>
                         <div id="map"></div>
@@ -170,12 +155,6 @@
     <script src="//d3js.org/topojson.v1.min.js"></script>
     
     <script>
-    var OD_PAIRS = [
-    ["JFK", "SYD", 245, [10, 30, 24, 94, 32], [143, 52, 32]],
-    ["LAX", "ARN", 423, [4, 53, 23, 96, 12], [234, 123, 345]],
-    ["ORD", "CDG", 132, [24, 55, 32, 35, 87], [64, 75, 24]],
-    ["DEN", "GRU", 562, [146, 80, 285, 67, 65], [341, 75, 26]]
-    ];
 
     var m_width = $("#map").width(),
         width = 938,
@@ -252,23 +231,6 @@
       }
     }
 
-    // function infoDiv(o, d, numAttacks, priority, type){
-    //   var div = document.createElement('div');
-    //   $(div).addClass('infoDiv');
-    //   var path = o + " TO " + d + "<br>";
-    //   var numAttacks = numAttacks + " Total Attacks <br>";
-    //   var priorityAttacks = "Priority 1 attacks: " + priority[0] + '<br>'
-    //                       + "Priority 2 attacks: " + priority[1] + '<br>'
-    //                       + "Priority 3 attacks: " + priority[2] + '<br>';
-    //   var typeAttacks =  "Type 1 attacks: " + type[0] + '<br>'
-    //                       + "Type 2 attacks: " + type[1] + '<br>'
-    //                       + "Type 3 attacks: " + type[2] + '<br>'
-    //                       + "Type 4 attacks: " + type[3] + '<br>'
-    //                       + "Type 5 attacks: " + type[4] + '<br>';
-    // $(div).html("<p>" + path + numAttacks + priorityAttacks + typeAttacks + "</p>");
-    // $('body').append(div);
-    // }
-
     function loaded(error, countries, airports) {
 
       svg.append("g")
@@ -286,19 +248,21 @@
         }
 
         $(document).ready(function(){
-          for(var i = 0; i < map24hr.length; i++){
-            var od = map24hr[i];
-            console.log('origin ' + airportMap[od['origin']]);
-            console.log(od['target']);
-            // console.log(od[1].class);
-            fly(od['origin'], od['target']);
-            var originstr = "#" + od['origin'];
-            var destinationstr = "#" + od['target'];
-            $(originstr).css('fill', 'red');
-            $(destinationstr).css('fill','blue');
-            // infoDiv(od[0], od[1], od[2], od[4], od[3]);
+          var data = mapWeek;
+          for(var i = 0; i < data.length; i++){
+            var od = data[i];
+            if(airportMap[od['origin']] == undefined || airportMap[od['target']] == undefined){
+              continue;
+            }
+            if($('#ln').attr('selected')){
+              if(od['total'] > 49){ continue; }
+            } else if($('#mn').attr('selected')){
+              if(od['total'] > 99 || od['total'] < 50){ continue; }
+            } else if($('#hn').attr('selected')){
+              if(od['total'] < 100 ){ continue; }
+            }
+            fly(od["origin"], od["target"]);
           }
-          $('.route').on('mouseenter mouseleave', console.log('hello!'));
         });
     }
     
@@ -313,16 +277,13 @@
     });
 
     function fly(origin, destination) {
-          // console.log(origin, destination);
-          // console.log(airportMap[origin]);
-          // console.log(airportMap[destination]);
           var route = svg.append("path")
                .datum({type: "LineString", coordinates: [airportMap[origin], airportMap[destination]]})
                .attr("class", "route")
                .attr("d", path)
-               .attr('stroke', 'black')
-               .attr('stroke-width', 1)
-               .attr('fill', 'none');
+               .attr("stroke", "red")
+               .attr("stroke-width", 1)
+               .attr("fill", "none");
     }
     </script>
 
