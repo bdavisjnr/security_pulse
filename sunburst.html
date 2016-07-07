@@ -23,6 +23,9 @@
       path{
         stroke: #fff;
       }
+      #sequence{
+        height: 200px;
+      }
     </style>
 </head>
 
@@ -72,7 +75,7 @@
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
-var width = 960,
+var width = 1100,
     height = 700,
     radius = Math.min(width, height) / 2;
 
@@ -244,7 +247,7 @@ function initializeBreadcrumbTrail() {
   // Add the svg area.
   var trail = d3.select("#sequence").append("svg:svg")
       .attr("width", width)
-      .attr("height", 50)
+      .attr("height", 100)
       .attr("id", "trail");
   // Add the label at the end, for the percentage.
   // trail.append("svg:text")
@@ -294,7 +297,12 @@ function updateBreadcrumbs(nodeArray) {
 
   // Set position for entering and updating nodes.
   g.attr("transform", function(d, i) {
-    return "translate(" + i * (b.w + b.s) + ", 0)";
+    if(i * (b.w + b.s) > 960){
+      var startover = (i * (b.w + b.s)) - 1000
+      return "translate(" + startover + ", 50)";
+    } else {
+      return "translate(" + i * (b.w + b.s) + ", 0)";
+    }
   });
 
   // Remove exiting nodes.
