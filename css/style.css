@@ -176,6 +176,7 @@ body.body-small .navbar-top-links li:last-child {
   background: #293846;*/
   border-bottom: 4px solid #8F2E39;
 }
+
 .nav.nav-second-level > li.active {
   border: none;
 }
@@ -6431,6 +6432,15 @@ body.skin-3 {
 }
 
 /* CUSTOM CSS */
+.side-active {
+  background: #3C90B3;
+  color: #fff;
+}
+
+.side-active a, i {
+  color: #fff;
+}
+
 
 #attacks h5 {
   color: #fff;
@@ -6485,4 +6495,22 @@ body.skin-3 {
 }
 #health-content h1, small {
   color: #fff;
+}
+
+/* SUNBURST CUSTOM CSS */
+path {
+  stroke: #fff;
+  fill-rule: evenodd;
+}
+
+#chart {
+  position: relative;
+  float: left;
+  margin-bottom: 20px;
+}
+
+
+#sequence text {
+  font-weight: 300;
+  fill: #fff;
 }

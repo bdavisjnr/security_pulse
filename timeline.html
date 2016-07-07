@@ -27,16 +27,16 @@
     <nav class="navbar-default navbar-static-side" role="navigation">
             <ul class="nav" id="side-menu">
                 <li>
-                    <a href="dashboard_2.html#"><i class="fa fa-flask"></i> <span class="nav-label">Overview</span> </a>
+                    <a href="dashboard_2.html#"><i class="fa fa-eye"></i> <span class="nav-label">Overview</span> </a>
                 </li>
                 <li>
-                    <a href="map.html"><i class="fa fa-magic"></i> <span class="nav-label"> Map</span></a>
+                    <a href="map.html"><i class="fa fa-globe"></i> <span class="nav-label">Map</span></a>
+                </li>
+                <li class="side-active">
+                    <a href="timeline.html"><i class="fa fa-line-chart"></i> <span class="nav-label">Timeline </span></a>
                 </li>
                 <li>
-                    <a href="timeline.html"><i class="fa fa-sitemap"></i> <span class="nav-label">Timeline </span></a>
-                </li>
-                <li>
-                    <a href="sunburst.html"><i class="fa fa-flask"></i> <span class="nav-label">Sunburst</span> </a>
+                    <a href="sunburst.html"><i class="fa fa-files-o"></i> <span class="nav-label">Sunburst</span> </a>
                 </li>
             </ul>
     </nav>
@@ -50,23 +50,134 @@
           <a class="navbar-brand" href="#">SecurityPulse</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="#">Dashboard</a></li>
-          <li><a href="#">Instructions</a></li>
-          <li><a href="#">Documentation</a></li> 
+          <li class="active"><a href="dashboard_2.html">Dashboard</a></li>
+          <li><a href="documentation.html">Documentation</a></li> 
         </ul>
       </div>
 
 
         </nav>
         </div>
-                </div>        
+        
+        <div class="wrapper wrapper-content article">
+            <div class="row">
+                <div class="col-lg-12 col-lg-offset-1">
+                    <div class="ibox">
+                                    <script src="http://d3js.org/d3.v2.js"></script>
+        <!-- 
+            using JQuery for element dimensions
+            This is a small aspect of this example so it can be removed fairly easily if needed.
+        -->
+        <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+        <script src="sample_data.js"></script>
+        <script src="line-graph.js"></script>
+        <link rel="stylesheet" href="css/style-timeline.css" type="text/css">
+        <style>
+            body {
+                font-family: "Helvetica Neue", Helvetica;
+            }
+                    
+            p {
+                clear:both;
+                top: 20px;
+            }       
+                    
+            div.aGraph {
+                margin-bottom: 30px;
+            }
+            #type{
+                position: relative;
+                left: 80%;
+                top: 10px;
+                padding-bottom: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='time'>
+            <button id="day" class="time">Past 24 Hours</button>
+            <button id="week" class="time">Past 7 Days</button>
+            <button id="month" class="time">Past 30 Days</button>
+        </div>
+        <div id="type">
+            <button id="P" class="type"> BY Priority</button>
+            <button id="C" class="type">BY Defense City</button>
+        </div>
+        <div id="title"><div>
+        <div id="graphShow" class="aGraph" style="float:left;position:relative;width:90%;height:300px"></div>
 
+        <script>
+        /* 
+         * If running inside bl.ocks.org we want to resize the iframe to fit both graphs
+         */
+         if(parent.document.getElementsByTagName("iframe")[0]) {
+             parent.document.getElementsByTagName("iframe")[0].setAttribute('style', 'height: 650px !important');
+         }
+    
+    
+        var l1 = new LineGraph({containerId: 'graphShow', data: dayP});
+
+        function pickGraph(timetype){
+            $('.line-graph').remove();
+            console.log('showing graph ' + timetype);
+            switch(timetype){
+                case 'dayP':
+                    var l1 = new LineGraph({containerId: 'graphShow', data: dayP});
+                    break;
+                case 'weekP':
+                    var l1 = new LineGraph({containerId: 'graphShow', data: weekP});
+                    break;
+                case 'monthP':
+                    var l1 = new LineGraph({containerId: 'graphShow', data: monthP});
+                    break;
+                case 'dayC':
+                    var l1 = new LineGraph({containerId: 'graphShow', data: dayC});
+                    break;
+                case 'weekC':
+                    var l1 = new LineGraph({containerId: 'graphShow', data: weekC});
+                    break;
+                case 'monthC':
+                    var l1 = new LineGraph({containerId: 'graphShow', data: monthC});
+            }   
+        }
+
+        var time = 'day';
+        var type = 'C';
+
+        $(document).ready(function(){
+            var time = 'day';
+            var type = 'C';
+            $('.time').on('click', function(){
+                $('.time').css('color', 'black');
+                $(this).css('color','blue');
+                var time = $(this).attr('id');
+            });
+            $('.type').on('click', function(){
+                $('.type').css('color', 'black');
+                $(this).css('color','blue');
+                var type = $(this).attr('id');
+            });
+        });
+        
+        </script>
+                        </div>
+                    </div>
                 </div>
-        <div class="footer text-center">
+            </div>
+
+            <div class="footer text-center">
             <div>
                 Carnegie Mellon University, Information Systems Department &copy; 2016
             </div>
         </div>
+        </div>
+
+
+
+        </div>        
+
+        </div>
+        
         </div>
     </div>
 
@@ -109,5 +220,6 @@
     <!-- Sparkline demo data  -->
     <script src="js/demo/sparkline-demo.js"></script>
 
+    
 </body>
 </html>
