@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SecurityPulse | Dashboard </title>
+    <title>SecurityPulse | Map </title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -19,6 +19,68 @@
 
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <script src="mapDay.js"></script>
+
+    <style>
+        .col-lg-offset-1{
+            margin-left: 0%;
+        }
+        #map {
+          background-color: #fff;
+          border: 1px solid #ccc;
+        }
+        .background {
+          fill: none;
+          pointer-events: none;
+        }
+        .airports {
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          vector-effect: non-scaling-stroke;
+        }
+        #countries, #states {
+          fill: #cde;
+          stroke: #fff;
+          stroke-linejoin: round;
+          stroke-linecap: round;
+        }
+        #countries .active, #states .active {
+          fill: #89a;
+        }
+        #cities {
+          stroke-width: 0;
+        }
+        .city {
+          fill: #345;
+          stroke: #fff;
+        }
+        pre.prettyprint {
+          border: 1px solid #ccc;
+          margin-bottom: 0;
+          padding: 9.5px;
+        }
+        #navbuttons{
+          float: right;
+        }
+        #filters{
+          position: absolute;
+          background-color: white;
+          opacity: .8;
+          top: 35px;
+          left: 1800px;
+        }
+        .route:hover{
+          stroke-width: 5px;
+        }
+        .infoDiv{
+          display: inline;
+          position: relative;
+          font-size: 24px;
+          padding: 10px;
+          border-style: 1px bold;
+        }
+    </style>
 
 </head>
 
@@ -51,7 +113,6 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
           <li class="active"><a href="#">Dashboard</a></li>
-          <li><a href="#">Instructions</a></li>
           <li><a href="#">Documentation</a></li> 
         </ul>
       </div>
@@ -59,9 +120,43 @@
 
         </nav>
         </div>
-                </div>        
-
+        <div class="wrapper wrapper-content article">
+            <div class="row">
+                <div class="col-lg-12 col-lg-offset-1">
+                    <div class="ibox">
+                        <div id='navbuttons'>
+                          <button>Past 24 Hours</button>
+                          <button>Past 7 Days</button>
+                          <button>Past 30 Days</button>
+                        </div>
+                        <div id="filters">
+                          <p>Filter By</p>
+                          <div>
+                            <button>Number of Attacks</button><br>
+                            <input type="checkbox" name="low" value="0-50">0-50<br>
+                            <input type="checkbox" name="med" value="50-100">50-100<br>
+                            <input type="checkbox" name="high" value="100+">100+<br>
+                          </div>
+                          <div>
+                            <button>Severity</button><br>
+                            <input type="checkbox" name="low" value="low">Priority 1<br>
+                            <input type="checkbox" name="med" value="med">Priority 2<br>
+                            <input type="checkbox" name="high" value="high">Priority 3<br>
+                          </div>
+                          <div>
+                            <button>Type of Attack</button><br>
+                            <input type="checkbox" name="low" value="low">TYPE 1<br>
+                            <input type="checkbox" name="med" value="med">TYPE 2<br>
+                            <input type="checkbox" name="high" value="high">TYPE 3<br>
+                            <input type="checkbox" name="high" value="high">TYPE 4<br>
+                            <input type="checkbox" name="high" value="high">TYPE 5<br>
+                          </div>
+                        </div>
+                        <div id="map"></div>
+                    </div>
                 </div>
+            </div>
+        </div>
         <div class="footer text-center">
             <div>
                 Carnegie Mellon University, Information Systems Department &copy; 2016
@@ -69,6 +164,167 @@
         </div>
         </div>
     </div>
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="//d3js.org/queue.v1.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    
+    <script>
+    var OD_PAIRS = [
+    ["JFK", "SYD", 245, [10, 30, 24, 94, 32], [143, 52, 32]],
+    ["LAX", "ARN", 423, [4, 53, 23, 96, 12], [234, 123, 345]],
+    ["ORD", "CDG", 132, [24, 55, 32, 35, 87], [64, 75, 24]],
+    ["DEN", "GRU", 562, [146, 80, 285, 67, 65], [341, 75, 26]]
+    ];
+
+    var m_width = $("#map").width(),
+        width = 938,
+        height = 500,
+        country,
+        state;
+
+    var countryClicked = false;
+    var stateClicked = false;
+
+    var projection = d3.geo.mercator()
+        .scale(150)
+        .translate([width / 2, height / 1.5]);
+
+    var path = d3.geo.path()
+        .pointRadius(2)
+        .projection(projection);
+
+    var svg = d3.select("#map").append("svg")
+        .attr("preserveAspectRatio", "xMidYMid")
+        .attr("viewBox", "0 0 " + width + " " + height)
+        .attr("width", m_width)
+        .attr("height", m_width * height / width);
+
+      var airportMap = {};
+
+    svg.append("rect")
+        .attr("class", "background")
+        .attr("width", width)
+        .attr("height", height);
+        // .on("click", country_clicked);
+
+    var g = svg.append("g");
+
+    d3.json("countries.topo.json", function(error, us) {
+      g.append("g")
+        .attr("id", "countries")
+        .selectAll("path")
+        .data(topojson.feature(us, us.objects.countries).features)
+        .enter()
+        .append("path")
+        .attr("id", function(d) { return d.id; })
+        .attr("d", path);
+        // .on("click", country_clicked);
+    });
+
+    function transition(plane, route) {
+    var l = route.node().getTotalLength();
+    plane.transition()
+        .duration(l * 50)
+        .attrTween("transform", delta(plane, route.node()))
+        .each("end", function() { route.remove(); })
+        .remove();
+    }
+    
+    function delta(plane, path) {
+      var l = path.getTotalLength();
+      var plane = plane;
+      return function(i) {
+        return function(t) {
+          var p = path.getPointAtLength(t * l);
+
+          var t2 = Math.min(t + 0.05, 1);
+          var p2 = path.getPointAtLength(t2 * l);
+
+          var x = p2.x - p.x;
+          var y = p2.y - p.y;
+          var r = 90 - Math.atan2(-y, x) * 180 / Math.PI;
+
+          var s = Math.min(Math.sin(Math.PI * t) * 0.7, 0.3);
+
+          return "translate(" + p.x + "," + p.y + ") scale(" + s + ") rotate(" + r + ")";
+        }
+      }
+    }
+
+    // function infoDiv(o, d, numAttacks, priority, type){
+    //   var div = document.createElement('div');
+    //   $(div).addClass('infoDiv');
+    //   var path = o + " TO " + d + "<br>";
+    //   var numAttacks = numAttacks + " Total Attacks <br>";
+    //   var priorityAttacks = "Priority 1 attacks: " + priority[0] + '<br>'
+    //                       + "Priority 2 attacks: " + priority[1] + '<br>'
+    //                       + "Priority 3 attacks: " + priority[2] + '<br>';
+    //   var typeAttacks =  "Type 1 attacks: " + type[0] + '<br>'
+    //                       + "Type 2 attacks: " + type[1] + '<br>'
+    //                       + "Type 3 attacks: " + type[2] + '<br>'
+    //                       + "Type 4 attacks: " + type[3] + '<br>'
+    //                       + "Type 5 attacks: " + type[4] + '<br>';
+    // $(div).html("<p>" + path + numAttacks + priorityAttacks + typeAttacks + "</p>");
+    // $('body').append(div);
+    // }
+
+    function loaded(error, countries, airports) {
+
+      svg.append("g")
+         .attr("class", "airports")
+         .selectAll("path")
+         .data(topojson.feature(airports, airports.objects.airports).features)
+         .enter()
+         .append("path")
+         .attr("id", function(d) {return d.id;})
+         .attr("d", path);
+      
+        var geos = topojson.feature(airports, airports.objects.airports).features;
+        for (i in geos) {
+          airportMap[geos[i].id] = geos[i].geometry.coordinates;
+        }
+
+        $(document).ready(function(){
+          for(var i = 0; i < map24hr.length; i++){
+            var od = map24hr[i];
+            console.log('origin ' + airportMap[od['origin']]);
+            console.log(od['target']);
+            // console.log(od[1].class);
+            fly(od['origin'], od['target']);
+            var originstr = "#" + od['origin'];
+            var destinationstr = "#" + od['target'];
+            $(originstr).css('fill', 'red');
+            $(destinationstr).css('fill','blue');
+            // infoDiv(od[0], od[1], od[2], od[4], od[3]);
+          }
+          $('.route').on('mouseenter mouseleave', console.log('hello!'));
+        });
+    }
+    
+    queue().defer(d3.json, "/countries.topo.json")
+           .defer(d3.json, "/airports.topo.json")
+           .await(loaded);
+
+    $(window).resize(function() {
+      currentWidth = $("#map").width();
+      svg.attr("width", currentWidth);
+      svg.attr("height", currentWidth * height / width);
+    });
+
+    function fly(origin, destination) {
+          // console.log(origin, destination);
+          // console.log(airportMap[origin]);
+          // console.log(airportMap[destination]);
+          var route = svg.append("path")
+               .datum({type: "LineString", coordinates: [airportMap[origin], airportMap[destination]]})
+               .attr("class", "route")
+               .attr("d", path)
+               .attr('stroke', 'black')
+               .attr('stroke-width', 1)
+               .attr('fill', 'none');
+    }
+    </script>
 
     <!-- Mainly scripts -->
     <script src="js/jquery-2.1.1.js"></script>
