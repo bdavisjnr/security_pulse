@@ -3549,13 +3549,13 @@ table.table-mail tr td {
   color: #1c84c6;
 }
 .text-info {
-  color: #23c6c8;
+  color: #ed5565;
 }
 .text-warning {
   color: #f8ac59;
 }
 .text-danger {
-  color: #ed5565;
+  color: #23c6c8;
 }
 .text-muted {
   color: #888888;
