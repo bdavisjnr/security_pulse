@@ -92,7 +92,7 @@
                             <img src="images/mediumfi.png" class="col-lg-4">
                             <img src="images/hifi.png" class="col-lg-4">
                             </div>
-                            <i><p align="center">Iterations of low fidelity, medium fidelity, and high fidelity mock-ups of the dashboard.</p></i>
+                            <i><p class="doc-caption" align="center">Iterations of low fidelity, medium fidelity, and high fidelity mock-ups of the dashboard.</p></i>
                             </br>
                              </br>
 
@@ -104,7 +104,7 @@
                             </br>
                             <h2>Implementation</h2>
                             <p>
-                                Collecting a large and applicable dataset for this project was a challenge. We chose a dataset of 1.6 million attack records that was used in a previous security academic project.****A link to this dataset can be found here: LINK TO DATASET. **** However, in order to further tailor the data to industry, we collated a list of cities around the world and weighted them by their likelihood of launching a security attack. Then, we distributed the city counts across the dataset to establish origins of attacks. Similarly, we tailored targeted city locations to major data center cities and weighted them by their likelihood of being attacked. These modifications were made using several small programs that we wrote in Ruby.
+                                Collecting a large and applicable dataset for this project was a challenge. We chose a dataset of 1.6 million attack records that was used in a previous security academic project (<a href="http://www.secrepo.com/" target="_blank">source</a>). However, in order to further tailor the data to industry, we collated a list of cities around the world and weighted them by their likelihood of launching a security attack. Then, we distributed the city counts across the dataset to establish origins of attacks. Similarly, we tailored targeted city locations to major data center cities and weighted them by their likelihood of being attacked. These modifications were made using several small programs that we wrote in Ruby.
                             </p>
                             <p>
                                 We then transferred this data into a PostgreSQL database so that we could easily query and utilize the information for our modules. Finally, in order to simulate a real-time dashboard that updates as attacks come in, we created a simple API that we used to adjust the time attribute of each attack to be current when a user opens up our application. 
@@ -120,8 +120,17 @@
                                 In the future, we hope to scale our project so that the dashboard can more effectively and efficiently serve its purpose in informing managers of the security of their organization. Specifically, we believe if given the chance, we would extend SecurityPulse to be mobile friendly.
                             </p>
                             <p>
-                                Real time notifications are imperative for decision making and minimizing damage. With clear visualization that still allows the same interactivity and functionality on a touch screen, while taking advantage of alerts, we mocked up a solution that we hope to pursue beyond this project. A few mockups are shown below:
+                                Real time notifications are imperative for decision making and minimizing damage. With clear visualization that still allows the same interactivity and functionality on a touch screen, while taking advantage of alerts, we created some  screens to start thinking about a mobile app solution we hope to pursue beyond this project.
                             </p>
+
+                            <div class="col-lg-12">
+                            <div class="col-lg-3"></div>
+                            <img src="images/mobile.png" class="col-lg-3">
+                            <img src="images/mobile-alert.png" class="col-lg-3">
+                            </div>
+
+                            <i><p class="doc-caption" align="center">Mockups of a mobile app version of SecurityPulse and exploring the opportunities of notifications.</p></i>
+
 
                             </br>
                             <h2>Conclusion</h2>
