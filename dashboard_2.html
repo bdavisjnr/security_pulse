@@ -211,26 +211,81 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>Orders</h5>
+                                <h5>Timeline</h5>
                                 <div class="pull-right">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-xs btn-white active">Today</button>
-                                        <button type="button" class="btn btn-xs btn-white">Monthly</button>
-                                        <button type="button" class="btn btn-xs btn-white">Annual</button>
-                                    </div>
-
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-xs btn-white">See More</button>
-
-                                    </div>
                                 </div>
                             </div>
                             <div class="ibox-content">
                                 <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="flot-chart">
-                                        <div class="flot-chart-content" id="flot-dashboard-chart"></div>
-                                    </div>
+                                            <script src="http://d3js.org/d3.v2.js"></script>
+        <!-- 
+            using JQuery for element dimensions
+            This is a small aspect of this example so it can be removed fairly easily if needed.
+        -->
+        <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+        <script src="sample_data.js"></script>
+        <script src="line-graph.js"></script>
+        <link rel="stylesheet" href="css/style-timeline.css" type="text/css">
+        <style>
+            body {
+                font-family: "Helvetica Neue", Helvetica;
+            }
+                    
+            p {
+                clear:both;
+                top: 20px;
+            }       
+                    
+            div.aGraph {
+                margin-bottom: 30px;
+            }
+            #type{
+                position: relative;
+                left: 80%;
+                top: 10px;
+                padding-bottom: 20px;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="type">
+        <!-- <button id="P" class="type"> BY Priority</button>
+        <button id="C" class="type">BY Defense City</button> -->
+        <div class="btn-group">
+            <button type="button" class="type btn btn-xs btn-white" id="P">By Priority</button>
+            <button type="button" class="type btn btn-xs btn-white" id="C">By Defense City</button>
+        </div>
+    </div>
+    <div id="title"><div>
+    <div id="graphHome" class="aGraph" style="position:relative;width:90%;height:300px"></div>
+
+    <script>
+        /* 
+         * If running inside bl.ocks.org we want to resize the iframe to fit both graphs
+         */
+         if(parent.document.getElementsByTagName("iframe")[0]) {
+             parent.document.getElementsByTagName("iframe")[0].setAttribute('style', 'height: 650px !important');
+         }
+
+        var l1 = new LineGraph({containerId: 'graphHome', data: dayP});
+
+        $(document).ready(function(){
+            $('#P').on('click', function(){
+                $(this).css('color','blue');
+                $('#C').css('color','black');
+                $('.line-graph').remove();
+                var l1 = new LineGraph({containerId: 'graphHome', data: dayP});
+            });
+            $('#C').on('click', function(){
+                $(this).css('color','blue');
+                $('#P').css('color','black');
+                $('.line-graph').remove();
+                var l1 = new LineGraph({containerId: 'graphHome', data: dayC});
+            });
+        });
+        
+    </script>
                                 </div>
                                 </div>
                                 </div>
