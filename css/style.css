@@ -3549,13 +3549,13 @@ table.table-mail tr td {
   color: #1c84c6;
 }
 .text-info {
-  color: #23c6c8;
+  color: #ed5565;
 }
 .text-warning {
   color: #f8ac59;
 }
 .text-danger {
-  color: #ed5565;
+  color: #23c6c8;
 }
 .text-muted {
   color: #888888;
@@ -5666,7 +5666,7 @@ body.rtls {
   /* Theme config */
 }
 body.rtls #page-wrapper {
-  margin: 0 220px 0 0;
+  margin: 0 0 0 0;
 }
 body.rtls .nav-second-level li a {
   padding: 7px 35px 7px 10px;
