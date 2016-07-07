@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SecurityPulse | Dashboard </title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+            <ul class="nav" id="side-menu">
+                <li>
+                    <a href="widgets.html"><i class="fa fa-flask"></i> <span class="nav-label">Overview</span> </a>
+                </li>
+                <li>
+                    <a href="css_animation.html"><i class="fa fa-magic"></i> <span class="nav-label"> Map</span></a>
+                </li>
+                <li>
+                    <a href="dashboard_2.html#"><i class="fa fa-sitemap"></i> <span class="nav-label">Timeline </span></a>
+                </li>
+                <li>
+                    <a href="widgets.html"><i class="fa fa-flask"></i> <span class="nav-label">Sunburst</span> </a>
+                </li>
+            </ul>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar white-bg" role="navigation" style="margin-bottom: 0">
+
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">SecurityPulse</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">Dashboard</a></li>
+          <li><a href="documentation.html">Documentation</a></li> 
+        </ul>
+      </div>
+
+
+        </nav>
+        </div>
+
+
+        <div class="wrapper wrapper-content  animated fadeInRight article">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <div class="text-center article-title">
+                                <h1>Our Process</h1>
+                            </div>
+                            <h2>Intro</h2>
+                            <p>
+                                Although Boeing is well-known as an experienced aerospace manufacturer, in reality the challenges that face the company expand far beyond aerospace. What goes into keeping a fleet of planes functional, reliable and safe? What sort of sensitive data is collected and processed throughout the creation and distribution of these planes? And how does a company like Boeing effectively assess, solve and then predict security threats to its internal systems? These questions sparked our team’s idea for SecurityPulse, a web-based security management tool that allows administrators to better understand the nature of security threats faced by their network. By leveraging intuitive data visualizations, we want to bring clarity and organization to the current security status of Boeing and enable administrators to gain insight, respond appropriately and even predict future threats.
+                            </p>
+                            <p>
+                                Most existing security systems cater only to singular information displays, meaning that threats and attacks are assessed and evaluated at an individual level. Our goal was to instead take several steps back and look at the bigger picture. In doing so, we hope that this application will transform security management from a simply reactive process to a powerful preventative methodology.
+                            </p>
+                            </br>
+                            <h2>Process</h2>
+                            <p>
+                                We decided that our application should be formatted as a dashboard, which displays a complete overview of the current security status. We chose to break this overview up into three modules. Each module visualizes and organizes all attacks in the system differently so that a security professional can choose a method of data interpretation that best fits their needs, and switch between modules to gain a full picture of the data. Our three modules are the Map, the Timeline, and the Sunburst.
+                            </p>
+                            <p>
+                               The Sunburst depicts attacks on an organizational level. Since there exists a wealth of information that can be traced about a particular security attack, such as its origin, level of danger, and type, filtering by these attributes can be excessively complicated. The Sunburst creates categories from these attributes. Then, it allows the user to trace a customizable path of filters to reach a subset of attacks with certain attributes.
+                            </p>
+                            <p>
+                                We validated these initial ideas by holding an interview session with a security engineer at Dell to review our initial mockups. Our crucial takeaways from this meeting were that (1) we needed to clearly identify the dashboard’s target user, and that (2) we needed to display our data in a way that moves past simple documentation, and rather provides paths for gaining insight.
+                            </p>
+                            </br>
+                            <h2>Persona</h2>
+                            <p>
+                                From this discussion, our team honed in on developing the persona that would utilize the dashboard and the specific breakdown of the dashboard’s functionality. In Discovery, we found two main users for such a security dashboard: a security or technology executive and an IT manager. With further research into the two roles, we concluded that it would be best for our design to incorporate granular modules that could help an IT manager troubleshoot [troubleshoot what?], and also include an overview that could inform and update an executive with a quick glance.
+                            </p>
+
+                            </br>
+                            <h2>Implementation</h2>
+                            <p>
+                                Collecting a large and applicable dataset for this project was a challenge. We chose a dataset of 1.6 million attack records that was used in a previous security academic project.****A link to this dataset can be found here: LINK TO DATASET. **** However, in order to further tailor the data to industry, we collated a list of cities around the world and weighted them by their likelihood of launching a security attack. Then, we distributed the city counts across the dataset to establish origins of attacks. Similarly, we tailored targeted city locations to major data center cities and weighted them by their likelihood of being attacked. These modifications were made using several small programs that we wrote in Ruby.
+                            </p>
+                            <p>
+                                We then transferred this data into a PostgreSQL database so that we could easily query and utilize the information for our modules. Finally, in order to simulate a real-time dashboard that updates as attacks come in, we created a simple API that we used to adjust the time attribute of each attack to be current when a user opens up our application. 
+                            </p>
+                            <p>
+                                Our dashboard utilizes Bootstrap, a CSS framework, which we modified to represent our original design. Each module was developed using an Agile methodology, and leveraged well-known frameworks in the data visualization arena. We primarily utilized d3.js, which catered well to our needs and data form. We completed several iterations of development to modify the usability and customizability of each module. Specifically, the Map and the Timeline were modified to incorporate more relevant filters, the Sunburst was extended to allow a path search to the level of an individual attack.
+                            </p>
+
+
+                            </br>
+                            <h2>Future Considerations</h2>
+                            <p>
+                                In the future, we hope to scale our project so that the dashboard can more effectively and efficiently serve its purpose in informing managers of the security of their organization. Specifically, we believe if given the chance, we would extend SecurityPulse to be mobile friendly.
+                            </p>
+                            <p>
+                                Real time notifications are imperative for decision making and minimizing damage. With clear visualization that still allows the same interactivity and functionality on a touch screen, while taking advantage of alerts, we mocked up a solution that we hope to pursue beyond this project. A few mockups are shown below:
+                            </p>
+
+                            </br>
+                            <h2>Conclusion</h2>
+                            <p>
+                                We believe that SecurityPulse represents a new way to target security management. Throughout this entire process, our team has consistently reminded ourselves that security is at the heart of any successful organization. It’s certainly at the heart of Boeing, and we hope we have shown that it’s the heart of our project, too. Thank you.
+                            </p>
+
+
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer text-center">
+            <div>
+                Carnegie Mellon University, Information Systems Department &copy; 2016
+            </div>
+        </div>
+        </div>
+      </div>
+
