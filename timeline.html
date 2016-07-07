@@ -80,34 +80,45 @@
             p {
                 clear:both;
                 top: 20px;
+                text-align: center;
+                margin-bottom: 0px;
+                font-weight: bold;
             }       
                     
             div.aGraph {
                 margin-bottom: 30px;
             }
-            #type{
-                position: absolute;
-                left: 70%;
-                top: 0px;
-                padding-bottom: 20px;
-            }
             .col-lg-offset-1{
                 margin-left: 5%;
+            }
+            #timeC {
+                float: left;
+            }
+            #byCity{
+                margin-top: 10px;
             }
         </style>
     </head>
     <body>
-        <div id='time'>
-            <button id="day" class="time">Past 24 Hours</button>
-            <button id="week" class="time">Past 7 Days</button>
-            <button id="month" class="time">Past 30 Days</button>
+        <div id="byPriority">
+            
+            <div id='timeP'>
+                <button id="dayP" class="priority">Past 24 Hours</button>
+                <button id="weekP" class="priority">Past 7 Days</button>
+                <button id="monthP" class="priority">Past 30 Days</button>
+            </div>
+            <p>Timeline of Attacks by PRIORITY</p>
+            <div id="graphPriority" class="aGraph" style="float:left;position:relative;width:90%;height:260px"></div>
         </div>
-        <div id="type">
-            <button id="P" class="type"> BY Priority</button>
-            <button id="C" class="type">BY Defense City</button>
+        <div id="byCity">
+            <div id='timeC'>
+                <button id="dayC" class="city">Past 24 Hours</button>
+                <button id="weekC" class="city">Past 7 Days</button>
+                <button id="monthC" class="city">Past 30 Days</button>
+            </div>
+            <p>Timeline of Attacks by DEFENSE CITY</p>
+            <div id="graphCity" class="aGraph" style="float:left;position:relative;width:90%;height:260px"></div>
         </div>
-        <div id="title"><div>
-        <div id="graphShow" class="aGraph" style="float:left;position:relative;width:90%;height:500px"></div>
 
         <script>
         /* 
@@ -118,47 +129,45 @@
          }
     
     
-        var l1 = new LineGraph({containerId: 'graphShow', data: dayP});
-
-        function pickGraph(timetype){
-            $('.line-graph').remove();
-            console.log('showing graph ' + timetype);
-            switch(timetype){
-                case 'dayP':
-                    var l1 = new LineGraph({containerId: 'graphShow', data: dayP});
-                    break;
-                case 'weekP':
-                    var l1 = new LineGraph({containerId: 'graphShow', data: weekP});
-                    break;
-                case 'monthP':
-                    var l1 = new LineGraph({containerId: 'graphShow', data: monthP});
-                    break;
-                case 'dayC':
-                    var l1 = new LineGraph({containerId: 'graphShow', data: dayC});
-                    break;
-                case 'weekC':
-                    var l1 = new LineGraph({containerId: 'graphShow', data: weekC});
-                    break;
-                case 'monthC':
-                    var l1 = new LineGraph({containerId: 'graphShow', data: monthC});
-            }   
-        }
-
-        var time = 'day';
-        var type = 'C';
+        var l1 = new LineGraph({containerId: 'graphPriority', data: dayP});
+        var l2 = new LineGraph({containerId: 'graphCity', data: dayC});
 
         $(document).ready(function(){
-            var time = 'day';
-            var type = 'C';
-            $('.time').on('click', function(){
-                $('.time').css('color', 'black');
+            $('#dayP').on('click', function(){
+                $('.priority').css('color','black');
                 $(this).css('color','blue');
-                var time = $(this).attr('id');
+                $('.line-graph').eq(0).remove();
+                var l1 = new LineGraph({containerId: 'graphPriority', data: dayP});
             });
-            $('.type').on('click', function(){
-                $('.type').css('color', 'black');
+            $('#weekP').on('click', function(){
+                $('.priority').css('color','black');
                 $(this).css('color','blue');
-                var type = $(this).attr('id');
+                $('.line-graph').eq(0).remove();
+                var l1 = new LineGraph({containerId: 'graphPriority', data: weekP});
+            });
+            $('#monthP').on('click', function(){
+                $('.priority').css('color','black');
+                $(this).css('color','blue');
+                $('.line-graph').eq(0).remove();
+                var l1 = new LineGraph({containerId: 'graphPriority', data: monthP});
+            });
+            $('#dayC').on('click', function(){
+                $('.city').css('color','black');
+                $(this).css('color','blue');
+                $('.line-graph').eq(1).remove();
+                var l2 = new LineGraph({containerId: 'graphCity', data: dayC});
+            });
+            $('#weekC').on('click', function(){
+                $('.city').css('color','black');
+                $(this).css('color','blue');
+                $('.line-graph').eq(1).remove();
+                var l2 = new LineGraph({containerId: 'graphCity', data: weekC});
+            });
+            $('#monthC').on('click', function(){
+                $('.city').css('color','black');
+                $(this).css('color','blue');
+                $('.line-graph').eq(1).remove();
+                var l2 = new LineGraph({containerId: 'graphCity', data: monthC});
             });
         });
         
