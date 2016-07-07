@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="col-lg-12 col-lg-offset-1">
                     <div class="ibox">
-                                    <script src="http://d3js.org/d3.v2.js"></script>
+                        <script src="http://d3js.org/d3.v2.js"></script>
         <!-- 
             using JQuery for element dimensions
             This is a small aspect of this example so it can be removed fairly easily if needed.
@@ -72,53 +72,54 @@
         <script src="sample_data.js"></script>
         <script src="line-graph.js"></script>
         <link rel="stylesheet" href="css/style-timeline.css" type="text/css">
-        <style>
-            body {
-                font-family: "Helvetica Neue", Helvetica;
-            }
-                    
-            p {
-                clear:both;
-                top: 20px;
-                text-align: center;
-                margin-bottom: 0px;
-                font-weight: bold;
-            }       
-                    
-            div.aGraph {
-                margin-bottom: 30px;
-            }
-            .col-lg-offset-1{
-                margin-left: 5%;
-            }
-            #timeC {
-                float: left;
-            }
-            #byCity{
-                margin-top: 10px;
-            }
-        </style>
+
     </head>
-    <body>
+    <body id="timeline">
+        
+        <div class="row">
+        <div class="col-lg-11">
+        <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Attacks by Priority</h5>
+            <div class="pull-right">
+                <div class="btn-group" id='timeP'>
+                    <button type="button" id="dayP" class="priority btn btn-xs btn-white">Past 24 Hours</button>
+                    <button type="button" id="weekP" class="priority btn btn-xs btn-white">Past 7 Days</button>
+                    <button type="button" id="monthP" class="priority btn btn-xs btn-white">Past 30 Days</button>
+                </div>
+        </div>
+    <div class="ibox-content" style="height:350px">
         <div id="byPriority">
-            
-            <div id='timeP'>
-                <button id="dayP" class="priority">Past 24 Hours</button>
-                <button id="weekP" class="priority">Past 7 Days</button>
-                <button id="monthP" class="priority">Past 30 Days</button>
-            </div>
-            <p>Timeline of Attacks by PRIORITY</p>
             <div id="graphPriority" class="aGraph" style="float:left;position:relative;width:90%;height:260px"></div>
         </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+        <div class="col-lg-11">
+        <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Attacks by Defense City</h5>
+            <div class="pull-right">
+                <div class="btn-group" id='timeP'>
+                    <button type="button" id="dayC" class="city btn btn-xs btn-white">Past 24 Hours</button>
+                    <button type="button" id="weekC" class="city btn btn-xs btn-white">Past 7 Days</button>
+                    <button type="button" id="monthC" class="city btn btn-xs btn-white">Past 30 Days</button>
+                </div>
+        </div>
+    <div class="ibox-content" style="height:350px">
         <div id="byCity">
-            <div id='timeC'>
-                <button id="dayC" class="city">Past 24 Hours</button>
-                <button id="weekC" class="city">Past 7 Days</button>
-                <button id="monthC" class="city">Past 30 Days</button>
-            </div>
-            <p>Timeline of Attacks by DEFENSE CITY</p>
             <div id="graphCity" class="aGraph" style="float:left;position:relative;width:90%;height:260px"></div>
         </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
 
         <script>
         /* 

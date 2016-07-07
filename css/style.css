@@ -6505,11 +6505,33 @@ path {
 #chart {
   position: relative;
   float: left;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 
 #sequence text {
   font-weight: 300;
   fill: #fff;
+}
+
+/* TIMELINE CUSTOM CSS */
+#timeline p {
+  clear:both;
+  top: 20px;
+  text-align: center;
+  margin-bottom: 0px;
+  font-weight: bold;
+}       
+
+div.aGraph {
+    margin-bottom: 30px;
+}
+.col-lg-offset-1{
+    margin-left: 5%;
+}
+#timeC {
+    float: left;
+}
+#byCity{
+    margin-top: 10px;
 }

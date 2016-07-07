@@ -68,9 +68,9 @@
         
         <div class="wrapper wrapper-content article">
             <div class="row">
+            <div id="sequence"></div>
                 <div class="col-lg-12 col-lg-offset-1">
                     <div class="ibox">
-                            <div id="sequence"></div>
 <div id="chart"></div>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
@@ -81,7 +81,7 @@ var width = 1100,
 
 // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
 var b = {
-  w: 120, h: 40, s: 3, t: 10
+  w: 210, h: 40, s: 3, t: 5
 };
 var x = d3.scale.linear()
     .range([0, 2 * Math.PI]);
@@ -89,7 +89,7 @@ var x = d3.scale.linear()
 var y = d3.scale.sqrt()
     .range([0, radius]);
 
-var color = d3.scale.category20b();
+var colors = d3.scale.category20b();
 
 var svg = d3.select("#chart").append("svg")
     .attr("width", width)
@@ -104,14 +104,14 @@ var svg = d3.select("#chart").append("svg")
 //drawLegend();
 initializeBreadcrumbTrail();
 
-var colors = {
-  "home": "#5687d1",
-  "product": "#7b615c",
-  "search": "#de783b",
-  "account": "#6ab975",
-  "other": "#a173d1",
-  "end": "#bbbbbb"
-};
+// var colors = {
+//   "home": "#5687d1",
+//   "product": "#7b615c",
+//   "search": "#de783b",
+//   "account": "#6ab975",
+//   "other": "#a173d1",
+//   "end": "#bbbbbb"
+// };
 var partition = d3.layout.partition()
     .sort(null)
     .value(function(d) { return 1; });
@@ -131,7 +131,7 @@ d3.json("sunburst_past_30_days.json", function(error, root) {
       .data(partition.nodes)
     .enter().append("path")
       .attr("d", arc)
-      .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
+      .style("fill", function(d) { return colors((d.children ? d : d.parent).name); })
       .on("click", click)
       .on("mouseover", mouseover)
       .each(stash);
@@ -246,7 +246,7 @@ function getAncestors(node) {
 function initializeBreadcrumbTrail() {
   // Add the svg area.
   var trail = d3.select("#sequence").append("svg:svg")
-      .attr("width", width)
+      .attr("width", 1200)
       .attr("height", 100)
       .attr("id", "trail");
   // Add the label at the end, for the percentage.
@@ -285,8 +285,7 @@ function updateBreadcrumbs(nodeArray) {
 
   entering.append("svg:polygon")
       .attr("points", breadcrumbPoints)
-      .style("fill", function(d) { return colors[d.name]; });
-
+      .style("fill", function(d) { return colors((d.children ? d : d.parent).name); })
 
   entering.append("svg:text")
       .attr("x", (b.w + b.t) / 2)
