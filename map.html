@@ -26,6 +26,12 @@
         .col-lg-offset-1{
             margin-left: 0%;
         }
+        
+        #filter-title {
+          font-size: 24px;
+          color: #052343;
+        }
+
         #map {
           background-color: #fff;
           border: 1px solid #ccc;
@@ -67,21 +73,20 @@
           background-color: white;
           left: 79%;
           z-index: 1;
-          padding: 10px;
+          padding: 25px;
+          padding-top: 5px;
         }
         .route:hover{
           stroke-width: 5px;
         }
-        button{
+        /*button{
           border: none;
           background-color: white;
           font-weight: bold;
           text-decoration: underline;
           margin-top: 10px;
         }
-        .submit{
-
-        }
+*/        
     </style>
 
 </head>
@@ -111,11 +116,11 @@
 
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">SecurityPulse</a>
+          <a class="navbar-brand" href="dashboard_2.html">SecurityPulse</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="#">Dashboard</a></li>
-          <li><a href="#">Documentation</a></li> 
+          <li class="active"><a href="dashboard_2.html">Dashboard</a></li>
+          <li><a href="documentation.html">Documentation</a></li> 
         </ul>
       </div>
 
@@ -128,21 +133,27 @@
                     <div class="ibox">
                         <h3>Map of Attacks for Past 24 Hours</h3>
                         <div id="filters">
-                          <p>Filter By</p>
+                          <h1 id="filter-title">Filters</h1>
+                          <!-- <div>
+                            <button>Number of Attacks</button><br>
+                            <input type="checkbox" id='ln' name="low">0-50<br>
+                            <input type="checkbox" id='mn' name="med">50-100<br>
+                            <input type="checkbox" id='hn' name="high">100+<br>
+                          </div> -->
                           <div>
-                            <button>Severity</button><br>
-                            <input type="checkbox" id="p1" name="low" value="low">Priority 1<br>
-                            <input type="checkbox" id="p2" name="med" value="med">Priority 2<br>
-                            <input type="checkbox" id="p3" name="high" value="high">Priority 3<br>
+                            <h3>Severity</h3>
+                            <input type="checkbox" id="p1" name="low" value="low"> Priority 1<br>
+                            <input type="checkbox" id="p2" name="med" value="med"> Priority 2<br>
+                            <input type="checkbox" id="p3" name="high" value="high"> Priority 3<br>
                           </div>
                           <div>
-                            <button>Type of Attack</button><br>
-                            <input type="checkbox" id="t1" name="low" value="low">Misc Activity<br>
-                            <input type="checkbox" id="t2" name="med" value="med">Web Application Attack<br>
-                            <input type="checkbox" id="t3" name="high" value="high">Attempted Information Leak<br>
-                            <input type="checkbox" id="t4" name="high" value="high">Potential Corporate Privacy Violation<br>
-                          </div>
-                          <button class="submit">GO</button>
+                            <br><h3>Type of Attack</h3>
+                            <input type="checkbox" id="t1" name="low" value="low"> Misc Activity<br>
+                            <input type="checkbox" id="t2" name="med" value="med"> Web Application Attack<br>
+                            <input type="checkbox" id="t3" name="high" value="high"> Attempted Information Leak<br>
+                            <input type="checkbox" id="t4" name="high" value="high"> Potential Corporate Privacy Violation<br>
+                          </div></br>
+                          <button class="submit btn btn-default btn-white">Display Attacks</button>
                         </div>
                         <div id="map"></div>
                     </div>
