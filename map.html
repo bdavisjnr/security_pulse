@@ -91,16 +91,16 @@
     <nav class="navbar-default navbar-static-side" role="navigation">
             <ul class="nav" id="side-menu">
                 <li>
-                    <a href="dashboard_2.html#"><i class="fa fa-flask"></i> <span class="nav-label">Overview</span> </a>
+                    <a href="dashboard_2.html#"><i class="fa fa-eye"></i> <span class="nav-label">Overview</span> </a>
+                </li>
+                <li class="side-active">
+                    <a href="map.html"><i class="fa fa-globe"></i> <span class="nav-label">Map</span></a>
                 </li>
                 <li>
-                    <a href="map.html"><i class="fa fa-magic"></i> <span class="nav-label"> Map</span></a>
+                    <a href="timeline.html"><i class="fa fa-line-chart"></i> <span class="nav-label">Timeline </span></a>
                 </li>
                 <li>
-                    <a href="timeline.html"><i class="fa fa-sitemap"></i> <span class="nav-label">Timeline </span></a>
-                </li>
-                <li>
-                    <a href="sunburst.html"><i class="fa fa-flask"></i> <span class="nav-label">Sunburst</span> </a>
+                    <a href="sunburst.html"><i class="fa fa-files-o"></i> <span class="nav-label">Sunburst</span> </a>
                 </li>
             </ul>
     </nav>
@@ -261,31 +261,32 @@
 
         function filter(){
           console.log('filtering');
+          console.log("orig: " + map24hr.length);
           var copy = alterData();
           var newData = copy.slice(0);
           console.log("length: " + newData.length);
-          var filteredData = [];
-          var data = mapWeek;
           var numfilters = $('input:checked').size();
           var filterList = []
+          console.log(newData);
           for(var i=0; i<numfilters;i++){
             filterList[i] = $('input:checked').eq(i).attr('id');
           }
-          console.log(filterList);
+          console.log("list: " + filterList);
           for(var i=0; i< newData.length; i++){
             var count = 0;
             for(filter in filterList){
-              // console.log(filter);
-              if(newData[i][filter] == 0){
+              console.log("filter: " + filterList[filter]);
+              console.log("i" + newData[i]);
+              if(newData[i][filterList[filter]] == 0){
                 count++;
-              } else {
               }
             }
+            console.log('count: ' + count);
             if(count == filterList.length){
               newData.splice(i, 1);
             }
           }
-          console.log("length: " +newData.length);
+          console.log("length: " + newData.length);
           $('.route').remove();
           for(var i = 0; i < newData.length; i++){
             var od = newData[i];
@@ -293,18 +294,26 @@
               continue;
             }
             fly(od["origin"], od["target"]);
+            var originstr = "#" + od['origin'];
+            var destinationstr = "#" + od['target'];
+            $(destinationstr).css('fill','blue');
+            $(destinationstr).css('stroke','blue');
+            $(destinationstr).css('stroke-width','10px');
+            if($(originstr).parent().attr('class') == 'airports'){
+              $(originstr).css('fill','red');
+            }
           }
         }
 
         function alterData(){
           for(var i = 0; i < map24hr.length; i++){
-            mapWeek[i]['t1'] = mapWeek[i]['types'][0]
-            mapWeek[i]['t2'] = mapWeek[i]['types'][1]
-            mapWeek[i]['t3'] = mapWeek[i]['types'][2]
-            mapWeek[i]['t4'] = mapWeek[i]['types'][3]
-            mapWeek[i]['p1'] = mapWeek[i]['priorities'][0]
-            mapWeek[i]['p2'] = mapWeek[i]['priorities'][1]
-            mapWeek[i]['p3'] = mapWeek[i]['priorities'][2]
+            map24hr[i]['t1'] = map24hr[i]['types'][0]
+            map24hr[i]['t2'] = map24hr[i]['types'][1]
+            map24hr[i]['t3'] = map24hr[i]['types'][2]
+            map24hr[i]['t4'] = map24hr[i]['types'][3]
+            map24hr[i]['p1'] = map24hr[i]['priorities'][0]
+            map24hr[i]['p2'] = map24hr[i]['priorities'][1]
+            map24hr[i]['p3'] = map24hr[i]['priorities'][2]
           }
           return map24hr;
         }
@@ -317,14 +326,14 @@
             if(airportMap[od['origin']] == undefined || airportMap[od['target']] == undefined){
               continue;
             }
-            if($('#ln').attr('selected')){
-              if(od['total'] > 49){ continue; }
-            } else if($('#mn').attr('selected')){
-              if(od['total'] > 99 || od['total'] < 50){ continue; }
-            } else if($('#hn').attr('selected')){
-              if(od['total'] < 100 ){ continue; }
-            }
-            fly(od["origin"], od["target"]);
+            // if($('#ln').attr('selected')){
+            //   if(od['total'] > 49){ continue; }
+            // } else if($('#mn').attr('selected')){
+            //   if(od['total'] > 99 || od['total'] < 50){ continue; }
+            // } else if($('#hn').attr('selected')){
+            //   if(od['total'] < 100 ){ continue; }
+            // }
+            // fly(od["origin"], od["target"]);
           }
           $('.submit').on('click', filter);
         });
@@ -345,8 +354,9 @@
                .datum({type: "LineString", coordinates: [airportMap[origin], airportMap[destination]]})
                .attr("class", "route")
                .attr("d", path)
-               .attr("stroke", "red")
+               .attr("stroke", "cornflowerblue")
                .attr("stroke-width", 1)
+               .attr("stroke-opacity", 0.6)
                .attr("fill", "none");
     }
     </script>

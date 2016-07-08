@@ -480,6 +480,14 @@
                             <div class="ibox-title">
                                 <h5>Timeline</h5>
                                 <div class="pull-right">
+                                    <div id="type">
+        <!-- <button id="P" class="type"> BY Priority</button>
+        <button id="C" class="type">BY Defense City</button> -->
+        <div class="btn-group">
+            <button type="button" class="type btn btn-xs btn-white" id="P">By Priority</button>
+            <button type="button" class="type btn btn-xs btn-white" id="C">By Defense City</button>
+        </div>
+    </div>
                                 </div>
                             </div>
                             <div class="ibox-content">
@@ -507,23 +515,10 @@
             div.aGraph {
                 margin-bottom: 30px;
             }
-            #type{
-                position: relative;
-                left: 80%;
-                top: 10px;
-                padding-bottom: 20px;
-            }
+            
         </style>
     </head>
     <body>
-    <div id="type">
-        <!-- <button id="P" class="type"> BY Priority</button>
-        <button id="C" class="type">BY Defense City</button> -->
-        <div class="btn-group">
-            <button type="button" class="type btn btn-xs btn-white" id="P">By Priority</button>
-            <button type="button" class="type btn btn-xs btn-white" id="C">By Defense City</button>
-        </div>
-    </div>
     <div id="title"><div>
     <div id="graphHome" class="aGraph" style="position:relative;width:90%;height:300px"></div>
 

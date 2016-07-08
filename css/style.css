@@ -6456,6 +6456,14 @@ body.skin-3 {
   color: #fff;
 }
 
+.fa-level-up {
+  color: #ed5565;
+}
+
+.fa-level-down {
+  color: #23c6c8;
+}
+
 #hp-attacks h5 {
   color: #fff;
 }
