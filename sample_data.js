@@ -21,6 +21,9 @@
 
 		var milisecsInADay = 86400000;
 		var today = new Date()
+		today.setHours(today.getHours());
+		today.setMinutes(0)
+		console.log(today);
 		var todayMili = today.getTime();
 		var yesterdayMili = todayMili - milisecsInADay;
 		var weekAgoMili = todayMili - milisecsInADay * 7;
