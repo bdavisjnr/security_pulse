@@ -6539,3 +6539,9 @@ div.aGraph {
 #byCity{
     margin-top: 10px;
 }
+
+/* Table Styles */
+scrollable {
+  overflow:scroll;
+    height:100px;
+}
