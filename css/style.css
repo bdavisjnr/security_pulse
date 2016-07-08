@@ -988,6 +988,7 @@ button.dim:active:before {
   top: 7px;
   font-size: 50px;
 }
+
 .label {
   background-color: #d1dade;
   color: #5e5e5e;
@@ -996,6 +997,19 @@ button.dim:active:before {
   font-weight: 600;
   padding: 3px 8px;
   text-shadow: none;
+}
+.red{
+  background-color: red;
+  color: #FFFFFF;
+}
+.orange{
+  background-color: orange;
+  color: #FFFFFF;
+}
+.yellow{
+  background-color: #FFD700;
+  color: #FFFFFF;
+
 }
 .badge {
   background-color: #d1dade;
