@@ -6497,6 +6497,10 @@ body.skin-3 {
   color: #fff;
 }
 
+.doc-caption p, i {
+  color: #ccc;
+}
+
 /* SUNBURST CUSTOM CSS */
 path {
   fill-rule: evenodd;
