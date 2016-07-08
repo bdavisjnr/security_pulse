@@ -261,8 +261,9 @@
 
         function filter(){
           console.log('filtering');
-          var newData = alterData();
-          console.log(newData.length);
+          var copy = alterData();
+          var newData = copy.slice(0);
+          console.log("length: " + newData.length);
           var filteredData = [];
           var data = mapWeek;
           var numfilters = $('input:checked').size();
@@ -274,16 +275,18 @@
           for(var i=0; i< newData.length; i++){
             var count = 0;
             for(filter in filterList){
-              if(newData[i][filterList[filter]] == 0){
-                console.log('looking: ' + newData[i][filterList[filter]])
+              // console.log(filter);
+              if(newData[i][filter] == 0){
                 count++;
+              } else {
               }
             }
             if(count == filterList.length){
               newData.splice(i, 1);
             }
           }
-          console.log(newData.length);
+          console.log("length: " +newData.length);
+          $('.route').remove();
           for(var i = 0; i < newData.length; i++){
             var od = newData[i];
             if(airportMap[od['origin']] == undefined || airportMap[od['target']] == undefined){
@@ -294,7 +297,7 @@
         }
 
         function alterData(){
-          for(var i = 0; i < mapWeek.length; i++){
+          for(var i = 0; i < map24hr.length; i++){
             mapWeek[i]['t1'] = mapWeek[i]['types'][0]
             mapWeek[i]['t2'] = mapWeek[i]['types'][1]
             mapWeek[i]['t3'] = mapWeek[i]['types'][2]
@@ -303,12 +306,12 @@
             mapWeek[i]['p2'] = mapWeek[i]['priorities'][1]
             mapWeek[i]['p3'] = mapWeek[i]['priorities'][2]
           }
-          return mapWeek;
+          return map24hr;
         }
 
 
         $(document).ready(function(){
-          var data = mapWeek;
+          var data = map24hr;
           for(var i = 0; i < data.length; i++){
             var od = data[i];
             if(airportMap[od['origin']] == undefined || airportMap[od['target']] == undefined){
